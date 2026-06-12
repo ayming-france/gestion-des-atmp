@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des AT/MP - Ayming</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://ayming-france.github.io/assets/engine/slides.css">
+  <style>
+    .chain-journey { display: flex; align-items: stretch; gap: 0; width: 100%; max-width: 1220px; margin: 28px auto 0; }
+    .chain-link { flex: 1; padding: 26px 14px; position: relative; text-align: center; }
+    .chain-link:first-child { border-radius: 16px 0 0 16px; }
+    .chain-link:last-child { border-radius: 0 16px 16px 0; }
+    .chain-number { font-size: 38px; font-weight: 700; opacity: 0.25; line-height: 1; margin-bottom: 6px; }
+    .chain-verb { font-size: 11px; text-transform: uppercase; letter-spacing: 2.5px; opacity: 0.7; margin-bottom: 6px; }
+    .chain-title { font-size: 16px; font-weight: 700; margin-bottom: 9px; line-height: 1.3; }
+    .chain-desc { font-size: 12.5px; opacity: 0.85; line-height: 1.45; }
+    .chain-offer { font-size: 10.5px; opacity: 0.6; margin-top: 12px; font-style: italic; }
+    .chain-arrow { display: flex; align-items: center; margin: 0 -12px; z-index: 2; position: relative; }
+    .chain-arrow svg { width: 24px; height: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+    .chain-footer { text-align: center; margin: 28px auto 0; max-width: 760px; }
+    .chain-footer p { font-size: 15.5px; color: #555; line-height: 1.6; }
+    .chain-footer strong { color: #003d79; }
+    .option-card { text-decoration: none; color: inherit; flex: 1; max-width: 235px; border-radius: 16px; }
+    .option-card .column-card { cursor: pointer; }
+    .option-card .card-image { position: relative; overflow: hidden; border-radius: 12px; }
+    .option-card .card-image img { transition: transform 0.4s ease; }
+    .option-card .card-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,61,121,0.7), rgba(10,179,140,0.6)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; border-radius: 12px; }
+    .option-card .card-overlay span { color: #fff; font-size: 12px; font-weight: 600; padding: 8px 16px; border: 2px solid #fff; border-radius: 30px; text-align: center; }
+    .option-card:hover .card-overlay { opacity: 1; }
+    .option-card:hover .card-image img { transform: scale(1.05); }
+    .chain-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+    .modele-grid { display: flex; gap: 32px; max-width: 1050px; margin: 30px auto 0; }
+    .modele-card { flex: 1; border-radius: 18px; padding: 34px 32px; position: relative; }
+    .modele-exter { background: linear-gradient(160deg, #003d79, #00509b); color: #fff; }
+    .modele-abo { background: #fff; border: 2px solid #0ab38c; color: #1d2b3a; }
+    .modele-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 14px; }
+    .modele-exter .modele-tag { background: rgba(255,255,255,0.18); color: #fff; }
+    .modele-abo .modele-tag { background: rgba(10,179,140,0.12); color: #068367; }
+    .modele-card h3 { font-size: 23px; font-weight: 700; margin-bottom: 10px; }
+    .modele-card p { font-size: 14.5px; line-height: 1.6; opacity: 0.92; }
+    .modele-card ul { margin: 16px 0 0; padding: 0; list-style: none; }
+    .modele-card li { font-size: 13.5px; padding: 6px 0 6px 24px; position: relative; }
+    .modele-card li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; }
+    .modele-abo li::before { color: #0ab38c; }
+    .modele-footer { text-align: center; margin-top: 26px; font-size: 15px; color: #555; }
+    .modele-footer strong { color: #003d79; }
+    .next-step { margin-top: 34px; padding: 18px 26px; border-radius: 14px; background: linear-gradient(90deg, rgba(15,167,226,0.10), rgba(10,179,140,0.10)); border: 1px solid rgba(17,169,230,0.35); font-size: 18px; font-weight: 700; color: #00456d; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <nav class="chapter-nav">
+    <div class="nav-toggle"><span></span><span></span><span></span></div>
+    <div class="nav-header">
+      <div class="nav-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+      <a class="nav-subtitle" href="https://www.ayming.fr/ressources-humaines/atmp/?utm_source=slides-sales&utm_medium=print&utm_campaign=atmp-famille" target="_blank">Gestion des AT/MP</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Le Marché</div>
+      <div class="nav-item active" data-slide="0"><span class="nav-item-number">01</span>Couverture</div>
+      <div class="nav-item" data-slide="1"><span class="nav-item-number">02</span>Insight</div>
+      <div class="nav-item" data-slide="2"><span class="nav-item-number">03</span>Alternatives</div>
+      <div class="nav-item" data-slide="3"><span class="nav-item-number">04</span>Comparaison</div>
+      <div class="nav-item" data-slide="4"><span class="nav-item-number">05</span>Monde idéal</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Notre Solution</div>
+      <div class="nav-item" data-slide="5"><span class="nav-item-number">06</span>Introduction</div>
+      <div class="nav-item" data-slide="6"><span class="nav-item-number">07</span>La chaîne</div>
+      <div class="nav-item" data-slide="7"><span class="nav-item-number">08</span>Deux modèles</div>
+      <div class="nav-item" data-slide="8"><span class="nav-item-number">09</span>Nos offres</div>
+      <div class="nav-item" data-slide="9"><span class="nav-item-number">10</span>Preuves</div>
+      <div class="nav-item" data-slide="10"><span class="nav-item-number">11</span>Implantation</div>
+      <div class="nav-item" data-slide="12"><span class="nav-item-number">12</span>Questions</div>
+      <div class="nav-item" data-slide="13"><span class="nav-item-number">13</span>Processus</div>
+      <div class="nav-item" data-slide="14"><span class="nav-item-number">14</span>Démarrage</div>
+    </div>
+  </nav>
+
+  <div class="slide-counter"><span class="current">1</span>/15</div>
+
+  <main class="presentation">
+
+    <!-- SLIDE 0: COVER -->
+    <section class="slide cover active" data-chapter="cover" data-slide="0">
+      <div class="cover-layout">
+        <div class="cover-left">
+          <div class="cover-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+          <h1 class="cover-title">Gestion<br>des AT/MP</h1>
+          <p class="cover-subtitle">Déclarer. Défendre. Piloter. Maîtriser.<br>De l'accident à la maîtrise de vos cotisations.</p>
+        </div>
+        <div class="cover-right">
+          <img class="cover-image" src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/At-tiers-5.jpg" alt="Gestion des AT/MP">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 1: INSIGHT -->
+    <section class="slide" data-chapter="insight" data-slide="1">
+      <div class="layout-split">
+        <div class="content-side">
+          <h1 class="slide-title">Un AT n'est pas un événement administratif. C'est un dossier financier qui court trois ans.</h1>
+          <p class="content-paragraph">Chaque accident reconnu alimente votre taux de cotisation AT/MP pendant trois ans. La déclaration, le questionnaire, les réserves, l'arrêt qui se prolonge : <strong>chaque étape mal tenue se paie sur le taux</strong>, longtemps après que le dossier est oublié.</p>
+          <p class="content-paragraph">Or ces étapes sont éclatées : les RH déclarent, la paie subit les arrêts, personne ne suit l'instruction, et la DAF découvre la facture à la notification du taux. <strong>Personne ne tient la chaîne de bout en bout.</strong></p>
+          <p class="content-paragraph highlight">Le problème n'est pas que les entreprises gèrent mal leurs AT/MP. C'est que chaque maillon est traité isolément, alors que le coût, lui, est cumulatif.</p>
+        </div>
+        <div class="visual-side">
+          <div class="image-container">
+            <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/exporting-at.jpg" alt="Coût des AT/MP">
+            <div class="floating-badge top-right"><span class="badge-number">3 ans</span> d'impact sur le taux</div>
+            <div class="floating-badge bottom-left"><span class="badge-number">€750-€3750</span> amende en cas de retard</div>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+    <!-- SLIDE 2: ALTERNATIVES -->
+    <section class="slide" data-chapter="alternatives" data-slide="2">
+      <div class="slide-inner">
+        <h1 class="slide-title">Comment les entreprises gèrent leurs AT/MP aujourd'hui</h1>
+        <div class="four-columns">
+          <div class="column-card">
+            <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/Gerer-control-URSSAF_0000s_0000_1.jpg" alt="Gestion interne"></div>
+            <h3>Gestion interne éclatée</h3>
+            <p><strong>Chacun son maillon.</strong> Les RH déclarent dans l'urgence, la paie subit, personne ne suit l'instruction ni le taux. Le coût se découvre à la notification.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/exporting-at.jpg" alt="Spécialiste"></div>
+            <h3>Spécialiste mono-étape</h3>
+            <p><strong>Une seule brique.</strong> Contestation du taux ou gestion des déclarations, rarement les deux. Or l'argent se perd entre les étapes.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/suivi-ijss-3.jpg" alt="Outil SaaS"></div>
+            <h3>Outil SaaS</h3>
+            <p><strong>Montre, ne traite pas.</strong> L'outil déclare et alerte. Il ne constitue pas un dossier probant et ne rédige pas des réserves qui tiennent.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/suivi-pain.jpg" alt="Avocat ponctuel"></div>
+            <h3>Avocat au cas par cas</h3>
+            <p><strong>Trop tard, trop cher.</strong> Sollicité quand le dossier est déjà mal parti. Expertise réelle, mais sans prise sur la chaîne amont.</p>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+    <!-- SLIDE 3: COMPARAISON -->
+    <section class="slide" data-chapter="comparaison" data-slide="3">
+      <div class="slide-inner">
+        <h1 class="slide-title">Aucune alternative ne tient la chaîne complète</h1>
+        <div class="table-container">
+          <table class="comparison-table">
+            <thead><tr><th>Alternative</th><th>Déclaration probante</th><th>Défense du dossier</th><th>Pilotage des arrêts AT</th><th>Maîtrise du taux</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Gestion interne</strong></td><td>⚠️ Dans l'urgence</td><td>❌ Réserves de forme</td><td>⚠️ Suivi paie seul</td><td>❌ Taux subi</td></tr>
+              <tr><td><strong>Spécialiste mono-étape</strong></td><td>❌ Hors périmètre</td><td>⚠️ Selon la brique</td><td>❌ Hors périmètre</td><td>⚠️ Contestation seule</td></tr>
+              <tr><td><strong>Outil SaaS</strong></td><td>⚠️ Formulaire en ligne</td><td>❌ Pas d'expertise</td><td>⚠️ Alertes</td><td>❌ Constat sans action</td></tr>
+              <tr style="background: linear-gradient(135deg, rgba(0,61,121,0.08), rgba(10,179,140,0.08));"><td><strong style="color:#003d79;">Ayming</strong></td><td><strong>✅ Dossier constitué à chaud</strong></td><td><strong>✅ Sur préconisations d'avocats</strong></td><td><strong>✅ Détection et suivi actifs</strong></td><td><strong>✅ Piloté en continu</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="text-align:center; margin-top:22px; font-size:15.5px; color:#555;">La valeur n'est pas dans une étape : <strong style="color:#003d79;">elle est dans la continuité entre les étapes.</strong></p>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+    <!-- SLIDE 4: MONDE IDEAL -->
+    <section class="slide" data-chapter="monde-ideal" data-slide="4">
+      <div class="slide-inner">
+        <h1 class="slide-title">Ce que serait une chaîne AT/MP maîtrisée</h1>
+        <div class="four-columns">
+          <div class="column-card ideal-card">
+            <div class="card-image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+            <h3>Chaque déclaration est un dossier probant</h3>
+            <p>Preuves captées à chaud, délais respectés, réserves préparées quand la qualification est contestable.</p>
+          </div>
+          <div class="column-card ideal-card">
+            <div class="card-image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+            <h3>Chaque dossier est défendu pendant l'instruction</h3>
+            <p>Questionnaires documentés, suivi jusqu'à la décision, expertise juridique par avocats indépendants quand elle s'impose.</p>
+          </div>
+          <div class="column-card ideal-card">
+            <div class="card-image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <h3>Les arrêts longs sont détectés et pilotés</h3>
+            <p>Les arrêts AT qui durent sont identifiés tôt et suivis, au lieu de peser silencieusement sur le taux.</p>
+          </div>
+          <div class="column-card ideal-card">
+            <div class="card-image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+            <h3>Le taux est piloté, pas découvert</h3>
+            <p>La sinistralité est visible en continu, les démarches sont engagées à temps, la notification ne surprend plus.</p>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+    <!-- SLIDE 5: INTRODUCTION -->
+    <section class="slide slide-introduction" data-chapter="introduction" data-slide="5">
+      <div class="slide-inner">
+        <div class="intro-hero">
+          <div class="intro-hero-collage">
+            <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/At-tiers-5.jpg" alt="Déclaration AT">
+            <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/11/questionnaire-mp.jpg" alt="Questionnaires MP">
+            <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/export-arrets.jpg" alt="Pilotage des arrêts">
+            <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/At-tiers-5.jpg" alt="Déclaration AT">
+            <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/11/questionnaire-mp.jpg" alt="Questionnaires MP">
+            <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/export-arrets.jpg" alt="Pilotage des arrêts">
+          </div>
+          <div class="intro-hero-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+          <div class="intro-title-band"><h2 class="intro-offer-title">Gestion des AT/MP</h2></div>
+          <div class="intro-stats">
+            <div class="intro-stat-card"><div class="intro-stat-number">35 000+</div><div class="intro-stat-label">accidents gérés / an</div></div>
+            <div class="intro-stat-card"><div class="intro-stat-number">550 000+</div><div class="intro-stat-label">salariés couverts</div></div>
+            <div class="intro-stat-card"><div class="intro-stat-number">20+ ans</div><div class="intro-stat-label">d'expertise AT/MP</div></div>
+            <div class="intro-stat-card"><div class="intro-stat-number">89%</div><div class="intro-stat-label">recommandation</div></div>
+          </div>
+        </div>
+        <div class="intro-content">
+          <p class="intro-pitch">Partenaire opérationnel de toute la chaîne AT/MP : de la déclaration à la maîtrise des cotisations, en passant par la défense des dossiers et le pilotage des arrêts. Une expertise, cinq maillons, un seul interlocuteur.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: LA CHAINE -->
+    <section class="slide" data-chapter="parcours" data-slide="6">
+      <div class="slide-inner">
+        <h1 class="slide-title">Cinq maillons, une seule chaîne</h1>
+        <div class="chain-journey">
+<div class="chain-link" style="background: linear-gradient(135deg, #003d79 0%, #00509b 100%); color: #fff;">
+  <div class="chain-number">1</div>
+  <div class="chain-verb">Déclarer</div>
+  <div class="chain-title">La déclaration comme dossier probant</div>
+  <div class="chain-desc">Constituer le dossier complet et déclarer dans les délais, dès la première minute.</div>
+  <div class="chain-offer">Déclarer un accident du travail</div>
+</div>
+<div class="chain-arrow"><svg viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg></div>
+<div class="chain-link" style="background: linear-gradient(135deg, #00509b 0%, #0073b8 100%); color: #fff;">
+  <div class="chain-number">2</div>
+  <div class="chain-verb">Défendre</div>
+  <div class="chain-title">Le dossier défendu pendant l'instruction</div>
+  <div class="chain-desc">Questionnaires MP documentés, réserves motivées préparées sur préconisations d'avocats indépendants.</div>
+  <div class="chain-offer">Traiter un questionnaire de maladie professionnelle</div>
+</div>
+<div class="chain-arrow"><svg viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg></div>
+<div class="chain-link" style="background: linear-gradient(135deg, #0073b8 0%, #0a9cc4 100%); color: #fff;">
+  <div class="chain-number">3</div>
+  <div class="chain-verb">Piloter</div>
+  <div class="chain-title">Les arrêts AT longs sous contrôle</div>
+  <div class="chain-desc">Détecter les arrêts AT supérieurs à 45 jours et suivre leur évolution pour en maîtriser le coût.</div>
+  <div class="chain-offer">Piloter les arrêts longue durée</div>
+</div>
+<div class="chain-arrow"><svg viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg></div>
+<div class="chain-link" style="background: linear-gradient(135deg, #0a9cc4 0%, #0ab38c 100%); color: #fff;">
+  <div class="chain-number">4</div>
+  <div class="chain-verb">Récupérer</div>
+  <div class="chain-title">Les coûts des tiers responsables</div>
+  <div class="chain-desc">Identifier les accidents causés par un tiers et faciliter la récupération des coûts.</div>
+  <div class="chain-offer">Accidents causés par un tiers (à venir)</div>
+</div>
+<div class="chain-arrow"><svg viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg></div>
+<div class="chain-link" style="background: linear-gradient(135deg, #0ab38c 0%, #07c99a 100%); color: #fff;">
+  <div class="chain-number">5</div>
+  <div class="chain-verb">Maîtriser</div>
+  <div class="chain-title">Le taux AT/MP piloté, pas subi</div>
+  <div class="chain-desc">Manager et piloter vos cotisations AT/MP : l'aboutissement financier de toute la chaîne.</div>
+  <div class="chain-offer">Maîtriser les cotisations AT/MP (à venir)</div>
+</div>
+        </div>
+        <div class="chain-footer">
+          <p>Une déclaration bien constituée facilite la défense. Un dossier bien défendu protège le taux. <strong>Chaque maillon renforce le suivant.</strong></p>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+    <!-- SLIDE 7: DEUX MODELES -->
+    <section class="slide" data-chapter="modeles" data-slide="7">
+      <div class="slide-inner">
+        <h1 class="slide-title">Deux façons de travailler avec nous</h1>
+        <div class="modele-grid">
+          <div class="modele-card modele-exter">
+            <span class="modele-tag">Externalisation</span>
+            <h3>Vous déléguez la chaîne</h3>
+            <p>Nous opérons vos déclarations, la défense des dossiers et le pilotage, de bout en bout. Pour les organisations multi-sites au volume significatif.</p>
+            <ul>
+              <li>Chaîne complète opérée par Ayming</li>
+              <li>Délais et processus tenus en continu</li>
+              <li>Reporting consolidé de la sinistralité</li>
+            </ul>
+          </div>
+          <div class="modele-card modele-abo">
+            <span class="modele-tag">Expertise à la demande</span>
+            <h3>Vous gardez la main, l'expertise en renfort</h3>
+            <p>Votre équipe gère l'AT/MP au quotidien et mobilise nos consultants sur les cas qui peuvent basculer. Forfait annuel, sur consultation.</p>
+            <ul>
+              <li>Vous gardez vos dossiers et votre organisation</li>
+              <li>Renfort mobilisable sur les cas complexes</li>
+              <li>Budget annuel prévisible, mensualisé</li>
+            </ul>
+          </div>
+        </div>
+        <p class="modele-footer">Le bon modèle dépend de votre organisation, pas de votre taille : <strong>déléguer la chaîne, ou garder la main avec un renfort expert.</strong></p>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+    <!-- SLIDE 8: NOS OFFRES -->
+    <section class="slide" data-chapter="options" data-slide="8" style="background: var(--bg-light);">
+      <div class="slide-inner">
+        <h1 class="slide-title">Les cinq maillons en détail</h1>
+        <div style="display: flex; justify-content: center; gap: 18px; width: 100%; max-width: 1280px;">
+<a href="https://ayming-france.github.io/declarer-un-accident-du-travail/" target="_blank" class="option-card">
+  <div class="column-card">
+    <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/At-tiers-5.jpg" alt="Déclarer un accident du travail"><div class="card-overlay"><span>Découvrir cette offre</span></div></div>
+    <span class="chain-badge" style="background: linear-gradient(135deg, #003d79 0%, #00509b 100%); color:#fff;">Maillon 1</span>
+    <h3 style="font-size:16px;">Déclarer un accident du travail</h3>
+    <p style="font-size:12.5px;">Constituer le dossier complet et déclarer dans les délais, dès la première minute.</p>
+  </div>
+</a>
+<a href="https://ayming-france.github.io/questionnaires-de-maladie-professionnelle/" target="_blank" class="option-card">
+  <div class="column-card">
+    <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/11/questionnaire-mp.jpg" alt="Traiter un questionnaire de maladie professionnelle"><div class="card-overlay"><span>Découvrir cette offre</span></div></div>
+    <span class="chain-badge" style="background: linear-gradient(135deg, #00509b 0%, #0073b8 100%); color:#fff;">Maillon 2</span>
+    <h3 style="font-size:16px;">Traiter un questionnaire de maladie professionnelle</h3>
+    <p style="font-size:12.5px;">Questionnaires MP documentés, réserves motivées préparées sur préconisations d'avocats indépendants.</p>
+  </div>
+</a>
+<a href="https://ayming-france.github.io/pilotage-arrets-longue-duree/" target="_blank" class="option-card">
+  <div class="column-card">
+    <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/export-arrets.jpg" alt="Piloter les arrêts longue durée"><div class="card-overlay"><span>Découvrir cette offre</span></div></div>
+    <span class="chain-badge" style="background: linear-gradient(135deg, #0073b8 0%, #0a9cc4 100%); color:#fff;">Maillon 3</span>
+    <h3 style="font-size:16px;">Piloter les arrêts longue durée</h3>
+    <p style="font-size:12.5px;">Détecter les arrêts AT supérieurs à 45 jours et suivre leur évolution pour en maîtriser le coût.</p>
+  </div>
+</a>
+<a href="https://www.ayming.fr/ressources-humaines/atmp/accidents-causes-par-un-tiers/?utm_source=slides-sales&utm_medium=print&utm_campaign=atmp-famille" target="_blank" class="option-card" style="opacity: 0.75;">
+  <div class="column-card">
+    <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/10/Gerer-control-URSSAF_0000s_0000_1.jpg" alt="Accidents causés par un tiers (à venir)"><div class="card-overlay"><span>Offre à venir, page ayming.fr</span></div></div>
+    <span class="chain-badge" style="background: linear-gradient(135deg, #0a9cc4 0%, #0ab38c 100%); color:#fff;">Maillon 4</span>
+    <h3 style="font-size:16px;">Accidents causés par un tiers</h3>
+    <p style="font-size:12.5px;">Identifier les accidents causés par un tiers et faciliter la récupération des coûts.</p>
+  </div>
+</a>
+<a href="https://www.ayming.fr/ressources-humaines/couts-rh/cotisations-at-mp/?utm_source=slides-sales&utm_medium=print&utm_campaign=atmp-famille" target="_blank" class="option-card" style="opacity: 0.75;">
+  <div class="column-card">
+    <div class="card-image"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/11/charges-1.jpg" alt="Maîtriser les cotisations AT/MP (à venir)"><div class="card-overlay"><span>Offre à venir, page ayming.fr</span></div></div>
+    <span class="chain-badge" style="background: linear-gradient(135deg, #0ab38c 0%, #07c99a 100%); color:#fff;">Maillon 5</span>
+    <h3 style="font-size:16px;">Maîtriser les cotisations AT/MP</h3>
+    <p style="font-size:12.5px;">Manager et piloter vos cotisations AT/MP : l'aboutissement financier de toute la chaîne.</p>
+  </div>
+</a>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+    <!-- SLIDE 13: PREUVES -->
+    <section class="slide" data-slide="9" data-chapter="preuves">
+      <div class="slide-inner">
+        <h1 class="slide-title">Ils nous font confiance</h1>
+
+        <style>
+          .testimonial-card .testimonial-front img { filter: brightness(0.8) saturate(0.85); transition: filter 0.4s ease; }
+          .testimonial-card:hover .testimonial-front img { filter: brightness(0.65) saturate(0.8); }
+        </style>
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-card-inner">
+              <div class="testimonial-front">
+                <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/05/STEF-532-x-532.jpg" alt="STEF">
+                <p class="testimonial-title">STEF améliore son pilotage des arrêts de travail</p>
+                <div class="testimonial-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/08/STEF_logo.png" alt="STEF"></div>
+                <span class="testimonial-hint">
+                  <i data-lucide="refresh-cw"></i>
+                  Découvrir
+                </span>
+              </div>
+              <div class="testimonial-back">
+                <div class="testimonial-stars"><span class="testimonial-stars-icons">★★★★★</span><span class="testimonial-date">Janvier 2024</span></div>
+                <div class="testimonial-quote-section">
+                  <p class="testimonial-quote">En cinq ans, la fréquence des accidents a été divisée par deux et cette tendance se maintient dans le temps. L'accompagnement d'Ayming nous a permis de structurer notre démarche.</p>
+                  <a href="https://www.ayming.fr/temoignages-clients/stef-ameliore-pilotage-arret-travail-et-risques-professionnels/?utm_source=slides-sales&utm_medium=print&utm_campaign=atmp-famille&utm_content=testimonial" target="_blank" class="testimonial-cta">Lire la suite</a>
+                </div>
+                <div class="testimonial-author">
+                  <span class="testimonial-name">Benoit HAVEZ</span>
+                  <span class="testimonial-position">DRH, STEF GMS</span>
+                  <img class="testimonial-company-logo" src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/08/STEF_logo.png" alt="STEF">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-card-inner">
+              <div class="testimonial-front">
+                <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/05/GEMFOS-532-x-532.jpg" alt="GEMFOS">
+                <p class="testimonial-title">GEMFOS réduit les accidents du travail</p>
+                <div class="testimonial-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/05/GEMFOS-1-e1759136624846-176x46.jpg" alt="GEMFOS"></div>
+                <span class="testimonial-hint">
+                  <i data-lucide="refresh-cw"></i>
+                  Découvrir
+                </span>
+              </div>
+              <div class="testimonial-back">
+                <div class="testimonial-stars"><span class="testimonial-stars-icons">★★★★★</span><span class="testimonial-date">Mars 2023</span></div>
+                <div class="testimonial-quote-section">
+                  <p class="testimonial-quote">Nous sommes pleinement satisfaits de la qualité du service fourni. L'équipe d'Ayming est composée de professionnels compétents qui comprennent nos enjeux.</p>
+                  <a href="https://www.ayming.fr/temoignages-clients/gemfos-reussi-a-reduire-les-accidents-du-travail-et-optimiser-la-gestion-des-absences/?utm_source=slides-sales&utm_medium=print&utm_campaign=atmp-famille&utm_content=testimonial" target="_blank" class="testimonial-cta">Lire la suite</a>
+                </div>
+                <div class="testimonial-author">
+                  <span class="testimonial-name">Bruno Sollier</span>
+                  <span class="testimonial-position">Directeur Général, GEMFOS</span>
+                  <img class="testimonial-company-logo" src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/05/GEMFOS-1-e1759136624846-176x46.jpg" alt="GEMFOS">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-card-inner">
+              <div class="testimonial-front">
+                <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/04/Colryut-532-x-532.jpg" alt="Colruyt">
+                <p class="testimonial-title">Colruyt sécurise ses coûts AT/MP</p>
+                <div class="testimonial-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/08/colruyt-logo-png-transparent-e1759137868909-176x80.png" alt="Colruyt"></div>
+                <span class="testimonial-hint">
+                  <i data-lucide="refresh-cw"></i>
+                  Découvrir
+                </span>
+              </div>
+              <div class="testimonial-back">
+                <div class="testimonial-stars"><span class="testimonial-stars-icons">★★★★★</span><span class="testimonial-date">Novembre 2023</span></div>
+                <div class="testimonial-quote-section">
+                  <p class="testimonial-quote">L'expertise de leurs équipes nous a permis de structurer nos pratiques en matière de gestion des AT/MP. C'est un partenariat qui s'inscrit dans la durée.</p>
+                  <a href="https://www.ayming.fr/temoignages-clients/colruyt-securise-ses-couts-lies-aux-at-mp/?utm_source=slides-sales&utm_medium=print&utm_campaign=atmp-famille&utm_content=testimonial" target="_blank" class="testimonial-cta">Lire la suite</a>
+                </div>
+                <div class="testimonial-author">
+                  <span class="testimonial-name">Jordi Gonzalez</span>
+                  <span class="testimonial-position">Chef QHS, Colruyt</span>
+                  <img class="testimonial-company-logo" src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/08/colruyt-logo-png-transparent-e1759137868909-176x80.png" alt="Colruyt">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="company-logo">
+        <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming">
+      </div>
+    </section>
+
+    <!-- SLIDE 14: ANCRAGE FRANCE -->
+    <section class="slide" data-slide="10" data-chapter="implantation">
+      <div class="slide-inner">
+        <div class="ancrage-layout">
+          <div class="ancrage-text">
+            <h1 class="slide-title" style="text-align: left; margin-bottom: 28px;">Un fort ancrage <strong>en France</strong>...</h1>
+            <p>Nos &eacute;quipes locales accompagnent au quotidien nos clients dans leur d&eacute;veloppement et leurs transformations <strong>en s'appuyant sur un &eacute;cosyst&egrave;me de professionnels en r&eacute;gions</strong> :</p>
+            <p>experts scientifiques, experts comptables, &eacute;tablissements bancaires, p&ocirc;les de comp&eacute;titivit&eacute;, f&eacute;d&eacute;rations professionnelles, avec un maillage de cabinets d'avocats et de m&eacute;decins ind&eacute;pendants.</p>
+          </div>
+          <div class="ancrage-map">
+            <img src="https://ayming-france.github.io/assets/maps/france-map.svg" alt="France" />
+          </div>
+        </div>
+      </div>
+      <div class="company-logo">
+        <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming">
+      </div>
+    </section>
+
+    <!-- SLIDE 15: IMPLANTATION -->
+    <section class="slide" data-slide="11" data-chapter="implantation">
+      <div class="slide-inner">
+        <h1 class="slide-title">
+          ... avec des bureaux dans <strong>14 pays</strong> pour une proximit&eacute; accrue
+          avec nos clients et leur &eacute;cosyst&egrave;me
+        </h1>
+        <div class="implantation-container">
+          <img src="https://ayming-france.github.io/assets/maps/na-map.svg" alt="Am&eacute;rique du Nord" class="implantation-na"/>
+          <img src="https://ayming-france.github.io/assets/maps/eu-map.svg" alt="Europe" class="implantation-eu"/>
+        </div>
+      </div>
+      <div class="company-logo">
+        <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming">
+      </div>
+    </section>
+
+
+    <!-- SLIDE 12: QUESTIONS -->
+    <section class="slide" data-chapter="questions" data-slide="12">
+      <div class="slide-inner">
+        <h1 class="slide-title">Les questions que vous vous posez</h1>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h4><i data-lucide="help-circle"></i>Nous gérons déjà en interne. Pourquoi changer ?</h4>
+            <p>Gérer chaque maillon n'est pas tenir la chaîne. La question n'est pas « est-ce que ça tourne ? » mais « combien coûte ce qui passe entre les mailles ? ». Le diagnostic le chiffre sur vos données.</p>
+          </div>
+          <div class="faq-card">
+            <h4><i data-lucide="help-circle"></i>Nous avons déjà un avocat pour les cas difficiles.</h4>
+            <p>Et il intervient quand le dossier est déjà mal parti. Notre accompagnement structure l'amont ; dès lors qu'une expertise juridique s'impose, il est fait appel à un cabinet d'avocats indépendants, choisi d'un commun accord.</p>
+          </div>
+          <div class="faq-card">
+            <h4><i data-lucide="help-circle"></i>Faut-il tout déléguer d'un coup ?</h4>
+            <p>Non. Chaque maillon est une offre à part entière : beaucoup de clients commencent par un maillon (la déclaration, ou le pilotage des arrêts) et étendent ensuite.</p>
+          </div>
+          <div class="faq-card">
+            <h4><i data-lucide="help-circle"></i>Comment mesure-t-on la valeur ?</h4>
+            <p>Par la sinistralité et le taux : visibilité en continu via nos outils, point d'avancement régulier, et l'évolution de vos cotisations comme juge de paix.</p>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+    <!-- SLIDE 15: PROCESSUS -->
+    <section class="slide" data-slide="13" data-chapter="processus">
+      <div class="slide-inner">
+        <h1 class="slide-title">
+          Comment démarrer
+        </h1>
+
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-title">Diagnostic gratuit</div>
+            <div class="step-duration">2 semaines</div>
+            <div class="step-description">Analyse de vos déclarations actuelles, identification des opportunités</div>
+          </div>
+
+          <span class="step-arrow">→</span>
+
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-title">Proposition sur-mesure</div>
+            <div class="step-duration">+1 semaine</div>
+            <div class="step-description">Modèle d'externalisation adapté à vos besoins</div>
+          </div>
+
+          <span class="step-arrow">→</span>
+
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-title">Déploiement complet</div>
+            <div class="step-duration">Selon planning</div>
+            <div class="step-description">Extension à l'ensemble de vos sites et types d'accidents</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="company-logo">
+        <img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming">
+      </div>
+    </section>
+
+
+    <!-- SLIDE 14: DEMARRAGE -->
+    <section class="slide" data-chapter="demarrage" data-slide="14">
+      <div class="slide-inner">
+        <h1 class="slide-title">Ce dont nous avons besoin pour démarrer</h1>
+        <div class="requirements-box">
+          <h4>Trois éléments simples</h4>
+          <ul>
+            <li><span class="check-icon"><i data-lucide="check"></i></span>Vos comptes employeur AT/MP et données de sinistralité des 3 dernières années</li>
+            <li><span class="check-icon"><i data-lucide="check"></i></span>Un entretien avec les équipes RH et paie (2 heures)</li>
+            <li><span class="check-icon"><i data-lucide="check"></i></span>Une revue d'un échantillon de dossiers récents</li>
+          </ul>
+        </div>
+        <p class="next-step">Prochaine étape : un échange de 30 minutes pour cadrer le diagnostic de votre chaîne AT/MP.</p>
+      </div>
+      <div class="company-logo"><img src="https://www.ayming.fr/wp-content/uploads/sites/3/2025/07/Ayming.png" alt="Ayming"></div>
+    </section>
+
+  </main>
+
+  <script src="https://ayming-france.github.io/assets/engine/lucide.min.js"></script>
+  <script src="https://ayming-france.github.io/assets/engine/slides.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
