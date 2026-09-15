@@ -9,7 +9,12 @@
   <link rel="stylesheet" href="https://ayming-france.github.io/assets/engine/slides.css">
   <style>
     .chain-journey { display: flex; align-items: stretch; gap: 0; width: 100%; max-width: 1220px; margin: var(--space-28) auto 0; }
-    .chain-link { flex: 1; padding: var(--space-26) var(--space-14); position: relative; text-align: center; }
+    .chain-link { flex: 1; padding: var(--space-26) var(--space-14); position: relative; text-align: center; color: #fff; }
+    .maillon-1 { background: linear-gradient(135deg, var(--blue-dark) 0%, #00509b 100%); }
+    .maillon-2 { background: linear-gradient(135deg, #00509b 0%, #0073b8 100%); }
+    .maillon-3 { background: linear-gradient(135deg, #0073b8 0%, #0a9cc4 100%); }
+    .maillon-4 { background: linear-gradient(135deg, #0a9cc4 0%, var(--gradient-green-end) 100%); }
+    .maillon-5 { background: linear-gradient(135deg, var(--gradient-green-end) 0%, #07c99a 100%); }
     .chain-link:first-child { border-radius: var(--radius-xl) 0 0 var(--radius-xl); }
     .chain-link:last-child { border-radius: 0 var(--radius-xl) var(--radius-xl) 0; }
     .chain-number { font-size: 38px; font-weight: var(--weight-bold); opacity: 0.25; line-height: var(--leading-tight); margin-bottom: var(--space-6); }
@@ -26,18 +31,23 @@
     .option-card .column-card { cursor: pointer; }
     .option-card .card-image { position: relative; overflow: hidden; border-radius: var(--radius-lg); }
     .option-card .card-image img { transition: transform 0.4s ease; }
-    .option-card .card-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,61,121,0.7), rgba(10,179,140,0.6)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; border-radius: var(--radius-lg); }
+    .option-card .card-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(var(--blue-dark-rgb), 0.7), rgba(var(--gradient-green-end-rgb), 0.6)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; border-radius: var(--radius-lg); }
     .option-card .card-overlay span { color: #fff; font-size: var(--font-12); font-weight: var(--weight-semibold); padding: var(--space-8) var(--space-16); border: 2px solid #fff; border-radius: var(--radius-30); text-align: center; }
     .option-card:hover .card-overlay { opacity: 1; }
     .option-card:hover .card-image img { transform: scale(1.05); }
-    .chain-badge { display: inline-block; padding: 3px var(--space-10); border-radius: var(--radius-2xl); font-size: var(--font-10); font-weight: var(--weight-bold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: var(--space-6); }
+    .option-card .column-card h3 { font-size: 16px; }
+    .option-card .column-card p { font-size: 12.5px; }
+    .options-slide { background: var(--bg-light); }
+    .options-row { display: flex; justify-content: center; gap: var(--space-18); width: 100%; max-width: 1280px; }
+    .ancrage-title { text-align: left; margin-bottom: var(--space-28); }
+    .chain-badge { display: inline-block; padding: 3px var(--space-10); border-radius: var(--radius-2xl); font-size: var(--font-10); font-weight: var(--weight-bold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: var(--space-6); color: #fff; }
     .modele-grid { display: flex; gap: var(--space-32); max-width: 1050px; margin: 30px auto 0; }
     .modele-card { flex: 1; border-radius: 18px; padding: var(--space-34) var(--space-32); position: relative; }
     .modele-exter { background: linear-gradient(160deg, var(--blue-dark), #00509b); color: #fff; }
     .modele-abo { background: #fff; border: 2px solid var(--gradient-green-end); color: #1d2b3a; }
     .modele-tag { display: inline-block; font-size: var(--font-11); font-weight: var(--weight-bold); letter-spacing: 2px; text-transform: uppercase; padding: 5px var(--space-14); border-radius: var(--radius-2xl); margin-bottom: var(--space-14); }
     .modele-exter .modele-tag { background: rgba(255,255,255,0.18); color: #fff; }
-    .modele-abo .modele-tag { background: rgba(10,179,140,0.12); color: #068367; }
+    .modele-abo .modele-tag { background: rgba(var(--gradient-green-end-rgb), 0.12); color: #068367; }
     .modele-card h3 { font-size: 23px; font-weight: var(--weight-bold); margin-bottom: var(--space-10); }
     .modele-card p { font-size: 14.5px; line-height: var(--leading-relaxed); opacity: 0.92; }
     .modele-card ul { margin: var(--space-16) 0 0; padding: 0; list-style: none; }
@@ -46,7 +56,7 @@
     .modele-abo li::before { color: var(--gradient-green-end); }
     .modele-footer { text-align: center; margin-top: var(--space-26); font-size: var(--font-15); color: #555; }
     .modele-footer strong { color: var(--blue-dark); }
-    .next-step { margin-top: var(--space-34); padding: var(--space-18) var(--space-26); border-radius: var(--radius-14); background: linear-gradient(90deg, rgba(15,167,226,0.10), rgba(10,179,140,0.10)); border: 1px solid rgba(17,169,230,0.35); font-size: var(--font-18); font-weight: var(--weight-bold); color: var(--blue-dark); text-align: center; }
+    .next-step { margin-top: var(--space-34); padding: var(--space-18) var(--space-26); border-radius: var(--radius-14); background: linear-gradient(90deg, rgba(var(--blue-primary-rgb), 0.10), rgba(var(--gradient-green-end-rgb), 0.10)); border: 1px solid rgba(var(--blue-primary-rgb), 0.35); font-size: var(--font-18); font-weight: var(--weight-bold); color: var(--blue-dark); text-align: center; }
   </style>
 </head>
 <body data-audience="client">
@@ -155,6 +165,11 @@
     <section class="slide" data-chapter="comparaison" data-slide="3">
       <div class="slide-inner">
         <h1 class="slide-title">Aucune alternative ne tient la chaîne complète</h1>
+        <style>
+          .comparison-row-ayming { background: linear-gradient(135deg, rgba(var(--blue-dark-rgb), 0.08), rgba(var(--gradient-green-end-rgb), 0.08)); }
+          .comparison-brand { color: var(--blue-dark); }
+          .comparaison-note { text-align: center; margin-top: var(--space-22); font-size: 15.5px; color: #555; }
+        </style>
         <div class="table-container">
           <table class="comparison-table">
             <thead><tr><th>Alternative</th><th>Déclaration probante</th><th>Défense du dossier</th><th>Pilotage des arrêts AT</th><th>Maîtrise du taux</th></tr></thead>
@@ -162,11 +177,11 @@
               <tr><td><strong>Gestion interne</strong></td><td>⚠️ Dans l'urgence</td><td>❌ Réserves de forme</td><td>⚠️ Suivi paie seul</td><td>❌ Taux subi</td></tr>
               <tr><td><strong>Spécialiste mono-étape</strong></td><td>❌ Hors périmètre</td><td>⚠️ Selon la brique</td><td>❌ Hors périmètre</td><td>⚠️ Contestation seule</td></tr>
               <tr><td><strong>Outil SaaS</strong></td><td>⚠️ Formulaire en ligne</td><td>❌ Pas d'expertise</td><td>⚠️ Alertes</td><td>❌ Constat sans action</td></tr>
-              <tr style="background: linear-gradient(135deg, rgba(0,61,121,0.08), rgba(10,179,140,0.08));"><td><strong style="color:#003d79;">Ayming</strong></td><td><strong>✅ Dossier constitué à chaud</strong></td><td><strong>✅ Sur préconisations d'avocats</strong></td><td><strong>✅ Détection et suivi actifs</strong></td><td><strong>✅ Piloté en continu</strong></td></tr>
+              <tr class="comparison-row-ayming"><td><strong class="comparison-brand">Ayming</strong></td><td><strong>✅ Dossier constitué à chaud</strong></td><td><strong>✅ Sur préconisations d'avocats</strong></td><td><strong>✅ Détection et suivi actifs</strong></td><td><strong>✅ Piloté en continu</strong></td></tr>
             </tbody>
           </table>
         </div>
-        <p style="text-align:center; margin-top:22px; font-size:15.5px; color:#555;">La valeur n'est pas dans une étape : <strong style="color:#003d79;">elle est dans la continuité entre les étapes.</strong></p>
+        <p class="comparaison-note">La valeur n'est pas dans une étape : <strong class="comparison-brand">elle est dans la continuité entre les étapes.</strong></p>
       </div>
       <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
     </section>
@@ -233,7 +248,7 @@
       <div class="slide-inner">
         <h1 class="slide-title">Cinq maillons, une seule chaîne</h1>
         <div class="chain-journey">
-<div class="chain-link" style="background: linear-gradient(135deg, #003d79 0%, #00509b 100%); color: #fff;">
+<div class="chain-link maillon-1">
   <div class="chain-number">1</div>
   <div class="chain-verb">Déclarer</div>
   <div class="chain-title">La déclaration comme dossier probant</div>
@@ -241,7 +256,7 @@
   <div class="chain-offer">Déclarer un accident du travail</div>
 </div>
 <div class="chain-arrow"><svg viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg></div>
-<div class="chain-link" style="background: linear-gradient(135deg, #00509b 0%, #0073b8 100%); color: #fff;">
+<div class="chain-link maillon-2">
   <div class="chain-number">2</div>
   <div class="chain-verb">Défendre</div>
   <div class="chain-title">Le dossier défendu pendant l'instruction</div>
@@ -249,7 +264,7 @@
   <div class="chain-offer">Traiter un questionnaire de maladie professionnelle</div>
 </div>
 <div class="chain-arrow"><svg viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg></div>
-<div class="chain-link" style="background: linear-gradient(135deg, #0073b8 0%, #0a9cc4 100%); color: #fff;">
+<div class="chain-link maillon-3">
   <div class="chain-number">3</div>
   <div class="chain-verb">Piloter</div>
   <div class="chain-title">Les arrêts AT longs sous contrôle</div>
@@ -257,7 +272,7 @@
   <div class="chain-offer">Piloter les arrêts longue durée</div>
 </div>
 <div class="chain-arrow"><svg viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg></div>
-<div class="chain-link" style="background: linear-gradient(135deg, #0a9cc4 0%, #0ab38c 100%); color: #fff;">
+<div class="chain-link maillon-4">
   <div class="chain-number">4</div>
   <div class="chain-verb">Récupérer</div>
   <div class="chain-title">Les coûts des tiers responsables</div>
@@ -265,7 +280,7 @@
   <div class="chain-offer">Accidents causés par un tiers</div>
 </div>
 <div class="chain-arrow"><svg viewBox="0 0 24 24" fill="white"><path d="M10 17l5-5-5-5v10z"/></svg></div>
-<div class="chain-link" style="background: linear-gradient(135deg, #0ab38c 0%, #07c99a 100%); color: #fff;">
+<div class="chain-link maillon-5">
   <div class="chain-number">5</div>
   <div class="chain-verb">Maîtriser</div>
   <div class="chain-title">Le taux AT/MP piloté, pas subi</div>
@@ -312,48 +327,48 @@
     </section>
 
     <!-- SLIDE 8: NOS OFFRES -->
-    <section class="slide" data-chapter="options" data-slide="8" style="background: var(--bg-light);">
+    <section class="slide options-slide" data-chapter="options" data-slide="8">
       <div class="slide-inner">
         <h1 class="slide-title">Les cinq maillons en détail</h1>
-        <div style="display: flex; justify-content: center; gap: 18px; width: 100%; max-width: 1280px;">
+        <div class="options-row">
 <a href="https://ayming-france.github.io/declarer-un-accident-du-travail/" target="_blank" class="option-card">
   <div class="column-card">
     <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/hub-cards/At-tiers-5.jpg" alt="Déclarer un accident du travail"><div class="card-overlay"><span>Découvrir cette offre</span></div></div>
-    <span class="chain-badge" style="background: linear-gradient(135deg, #003d79 0%, #00509b 100%); color:#fff;">Maillon 1</span>
-    <h3 style="font-size:16px;">Déclarer un accident du travail</h3>
-    <p style="font-size:12.5px;">Constituer le dossier complet et déclarer dans les délais, dès la première minute.</p>
+    <span class="chain-badge maillon-1">Maillon 1</span>
+    <h3>Déclarer un accident du travail</h3>
+    <p>Constituer le dossier complet et déclarer dans les délais, dès la première minute.</p>
   </div>
 </a>
 <a href="https://ayming-france.github.io/questionnaires-de-maladie-professionnelle/" target="_blank" class="option-card">
   <div class="column-card">
     <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/questionnaires-mp/questionnaire-mp.jpg" alt="Traiter un questionnaire de maladie professionnelle"><div class="card-overlay"><span>Découvrir cette offre</span></div></div>
-    <span class="chain-badge" style="background: linear-gradient(135deg, #00509b 0%, #0073b8 100%); color:#fff;">Maillon 2</span>
-    <h3 style="font-size:16px;">Traiter un questionnaire de maladie professionnelle</h3>
-    <p style="font-size:12.5px;">Questionnaires MP documentés, réserves motivées préparées sur préconisations d'avocats indépendants.</p>
+    <span class="chain-badge maillon-2">Maillon 2</span>
+    <h3>Traiter un questionnaire de maladie professionnelle</h3>
+    <p>Questionnaires MP documentés, réserves motivées préparées sur préconisations d'avocats indépendants.</p>
   </div>
 </a>
 <a href="https://ayming-france.github.io/pilotage-arrets-longue-duree/" target="_blank" class="option-card">
   <div class="column-card">
     <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/hub-cards/export-arrets.jpg" alt="Piloter les arrêts longue durée"><div class="card-overlay"><span>Découvrir cette offre</span></div></div>
-    <span class="chain-badge" style="background: linear-gradient(135deg, #0073b8 0%, #0a9cc4 100%); color:#fff;">Maillon 3</span>
-    <h3 style="font-size:16px;">Piloter les arrêts longue durée</h3>
-    <p style="font-size:12.5px;">Détecter les arrêts AT supérieurs à 45 jours et suivre leur évolution pour en maîtriser le coût.</p>
+    <span class="chain-badge maillon-3">Maillon 3</span>
+    <h3>Piloter les arrêts longue durée</h3>
+    <p>Détecter les arrêts AT supérieurs à 45 jours et suivre leur évolution pour en maîtriser le coût.</p>
   </div>
 </a>
 <a href="https://ayming-france.github.io/accidents-tiers/" target="_blank" class="option-card">
   <div class="column-card">
     <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/ijss/Gerer-control-URSSAF_0000s_0000_1.jpg" alt="Accidents causés par un tiers"><div class="card-overlay"><span>Découvrir cette offre</span></div></div>
-    <span class="chain-badge" style="background: linear-gradient(135deg, #0a9cc4 0%, #0ab38c 100%); color:#fff;">Maillon 4</span>
-    <h3 style="font-size:16px;">Accidents causés par un tiers</h3>
-    <p style="font-size:12.5px;">Identifier les accidents causés par un tiers et faciliter la récupération des coûts.</p>
+    <span class="chain-badge maillon-4">Maillon 4</span>
+    <h3>Accidents causés par un tiers</h3>
+    <p>Identifier les accidents causés par un tiers et faciliter la récupération des coûts.</p>
   </div>
 </a>
 <a href="https://ayming-france.github.io/cotisations-atmp/" target="_blank" class="option-card">
   <div class="column-card">
     <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/hub-cards/charges-1.jpg" alt="Maîtriser les cotisations AT/MP"><div class="card-overlay"><span>Découvrir cette offre</span></div></div>
-    <span class="chain-badge" style="background: linear-gradient(135deg, #0ab38c 0%, #07c99a 100%); color:#fff;">Maillon 5</span>
-    <h3 style="font-size:16px;">Maîtriser les cotisations AT/MP</h3>
-    <p style="font-size:12.5px;">Manager et piloter vos cotisations AT/MP : l'aboutissement financier de toute la chaîne.</p>
+    <span class="chain-badge maillon-5">Maillon 5</span>
+    <h3>Maîtriser les cotisations AT/MP</h3>
+    <p>Manager et piloter vos cotisations AT/MP : l'aboutissement financier de toute la chaîne.</p>
   </div>
 </a>
         </div>
@@ -464,7 +479,7 @@
       <div class="slide-inner">
         <div class="ancrage-layout">
           <div class="ancrage-text">
-            <h1 class="slide-title" style="text-align: left; margin-bottom: 28px;">Un fort ancrage <strong>en France</strong>...</h1>
+            <h1 class="slide-title ancrage-title">Un fort ancrage <strong>en France</strong>...</h1>
             <p>Nos &eacute;quipes locales accompagnent au quotidien nos clients dans leur d&eacute;veloppement et leurs transformations <strong>en s'appuyant sur un &eacute;cosyst&egrave;me de professionnels en r&eacute;gions</strong> :</p>
             <p>experts scientifiques, experts comptables, &eacute;tablissements bancaires, p&ocirc;les de comp&eacute;titivit&eacute;, f&eacute;d&eacute;rations professionnelles, avec un maillage de cabinets d'avocats et de m&eacute;decins ind&eacute;pendants.</p>
           </div>
